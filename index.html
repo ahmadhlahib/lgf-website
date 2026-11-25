@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Lebanese Gymnastics Federation - draft website by Ahmad El Lahib">
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<title>Lebanese Gymnastics Federation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Readex+Pro:wght@300;400;500;700&display=swap">
+<style>
+/* Layout: sticky federation header, routed views (#home #federation #clubs #competitions #athletes), red hero bands, white content. Deliberately single light look (official site). */
+:root{
+  --bg:#ffffff; --surface:#f3f5f7; --ink:#11161d; --muted:#596473; --line:#e2e6eb;
+  --red:#d8232a; --red-dark:#a9161c; --red-soft:#fdeced; --cedar:#0b8a4c; --cedar-soft:#e4f4eb; --gold:#c9962b;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Readex Pro","Segoe UI",Tahoma,system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+[dir="rtl"] body,[dir="rtl"]{font-family:var(--body)}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance}
+[dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3,[dir="rtl"] h4{font-family:var(--body);font-weight:700;line-height:1.35}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+/* draft strip */
+.draft{background:var(--ink);color:#fff;font-size:.78rem;text-align:center;padding:6px 16px}
+.draft b{color:#ffb4b7;font-weight:500}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:#fff}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:18px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.mark{width:44px;height:44px;flex:none;border-radius:50%;background:var(--red);display:grid;place-items:center;transition:transform .7s cubic-bezier(.5,-.4,.4,1.4)}
+.brand:hover .mark{transform:rotate(360deg)}
+.mark svg{width:26px;height:26px}
+.brand-t{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.brand-t b{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-t small{font-size:.72rem;color:var(--muted)}
+nav.main{display:flex;gap:4px;margin-inline-start:auto;overflow-x:auto;scrollbar-width:none}
+nav.main a{text-decoration:none;padding:8px 12px;border-radius:999px;font-size:.88rem;white-space:nowrap;color:var(--muted)}
+nav.main a:hover{color:var(--ink);background:var(--surface)}
+nav.main a[aria-current="page"]{background:var(--ink);color:#fff}
+.langs{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;flex:none}
+.langs button{all:unset;cursor:pointer;padding:6px 11px;font-size:.78rem}
+.langs button[aria-pressed="true"]{background:var(--red);color:#fff}
+.langs button:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+@media (max-width:900px){
+  .bar{flex-wrap:wrap;row-gap:8px}
+  nav.main{order:3;width:100%;margin:0}
+  .langs{margin-inline-start:auto}
+}
+
+/* generic */
+section{padding-block:72px}
+.eyebrow{display:inline-block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:500;margin-bottom:12px}
+[dir="rtl"] .eyebrow{letter-spacing:0;font-size:.85rem}
+.h2{font-size:clamp(1.6rem,3.4vw,2.5rem)}
+.lede{color:var(--muted);max-width:62ch;margin-top:14px;font-size:1.05rem}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:34px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:500;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-red{background:var(--red);color:#fff}
+.btn-white{background:#fff;color:var(--ink)}
+.btn-line{border-color:currentColor;background:transparent;color:inherit}
+.arrow{display:inline-block;transition:transform .2s}
+[dir="rtl"] .arrow{transform:scaleX(-1)}
+.sample{display:inline-block;font-size:.66rem;padding:2px 7px;border-radius:3px;background:var(--surface);color:var(--muted);border:1px dashed #c3cad3;vertical-align:middle;margin-inline-start:6px;font-family:var(--body);font-weight:400;letter-spacing:0;text-transform:none}
+
+/* hero */
+.hero{background:var(--red);color:#fff;position:relative;overflow:hidden;padding-block:72px 84px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero-grid > *{min-width:0}
+.hero h1{font-size:clamp(2.4rem,6.6vw,5.2rem);font-weight:900;letter-spacing:-.02em}
+[dir="rtl"] .hero h1{letter-spacing:0;font-size:clamp(2.4rem,6vw,4.6rem)}
+.hero h1 em{font-style:normal;display:block;color:var(--ink)}
+.hero p{margin-top:20px;font-size:1.12rem;max-width:48ch;opacity:.95}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.3}
+.count{background:#fff;color:var(--ink);border-radius:14px;padding:24px;box-shadow:14px 14px 0 var(--ink)}
+[dir="rtl"] .count{box-shadow:-14px 14px 0 var(--ink)}
+.count small{color:var(--red);font-weight:500;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.count h3{font-size:1.25rem;margin-top:6px}
+.count .where{color:var(--muted);font-size:.9rem;margin-top:4px}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px;text-align:center}
+.clock div{background:var(--surface);border-radius:8px;padding:10px 4px}
+.clock b{display:block;font-family:var(--display);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1.1}
+.clock span{font-size:.7rem;color:var(--muted)}
+
+/* ticker */
+.ticker{background:var(--ink);color:#fff;overflow:hidden;white-space:nowrap;font-size:.88rem}
+.ticker-in{display:inline-flex;gap:48px;padding:12px 0;animation:tick 40s linear infinite}
+[dir="rtl"] .ticker-in{animation-name:tick-rtl}
+.ticker-in span::before{content:"●";color:var(--red);margin-inline-end:10px}
+@keyframes tick{to{transform:translateX(-50%)}}
+@keyframes tick-rtl{to{transform:translateX(50%)}}
+
+/* disciplines */
+.disc{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.disc article{border:1px solid var(--line);border-radius:14px;padding:20px 18px;cursor:default;transition:transform .35s cubic-bezier(.3,1.6,.5,1),border-color .2s;min-width:0}
+.disc article:hover{transform:translateY(-6px) rotate(-1.5deg);border-color:var(--red)}
+.disc svg{width:46px;height:46px;color:var(--red)}
+.disc h3{font-size:.95rem;margin-top:14px}
+.disc p{font-size:.82rem;color:var(--muted);margin-top:4px}
+
+/* stats */
+.stats{background:var(--surface)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+.stat b{font-family:var(--display);font-size:clamp(2.4rem,5vw,3.6rem);color:var(--red);display:block;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:10px;color:var(--muted);font-size:.95rem}
+
+/* president */
+.pres{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:56px;align-items:center}
+.pres img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:12px;box-shadow:16px 16px 0 var(--red)}
+[dir="rtl"] .pres img{box-shadow:-16px 16px 0 var(--red)}
+.pres blockquote{margin:14px 0 0;font-size:clamp(1.15rem,2.4vw,1.6rem);line-height:1.5}
+.pres blockquote::before{content:"“";display:block;font-family:var(--display);font-size:4rem;line-height:.6;color:var(--red);margin-bottom:10px}
+.sign{margin-top:22px}
+.sign b{display:block;font-size:1.1rem}
+.sign span{color:var(--muted);font-size:.92rem}
+@media (max-width:760px){.pres{grid-template-columns:1fr;gap:32px}.pres img{max-width:240px}}
+
+/* quiz */
+.quiz{background:var(--ink);color:#fff;border-radius:20px;padding:40px;display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
+.quiz > *{min-width:0}
+.quiz .eyebrow{color:#ff8a8f}
+.quiz h2{color:#fff}
+.q-card{background:#1d242d;border-radius:14px;padding:26px;min-height:240px}
+.q-step{font-size:.78rem;color:#9aa6b4}
+.q-card h3{font-size:1.15rem;margin:8px 0 18px;color:#fff}
+.q-opts{display:grid;gap:10px}
+.q-opts button{all:unset;cursor:pointer;background:#2a333e;padding:12px 16px;border-radius:10px;transition:background .2s,transform .2s}
+.q-opts button:hover{background:var(--red);transform:translateX(4px)}
+[dir="rtl"] .q-opts button:hover{transform:translateX(-4px)}
+.q-opts button:focus-visible{outline:3px solid #fff}
+.q-res b{font-family:var(--display);font-size:1.8rem;color:#ff8a8f;display:block;margin:8px 0}
+[dir="rtl"] .q-res b{font-family:var(--body)}
+.q-res p{color:#c9d1da}
+.q-res .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+@media (max-width:820px){.quiz{grid-template-columns:1fr;padding:26px}}
+
+/* news cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.card{border-radius:14px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;min-width:0;background:#fff}
+.card .img{aspect-ratio:16/10;position:relative;overflow:hidden}
+.card .img i{position:absolute;inset:0}
+.card .img span{position:absolute;bottom:12px;inset-inline-start:12px;background:#fff;font-size:.72rem;padding:4px 10px;border-radius:999px;font-weight:500}
+.card .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card time{font-size:.78rem;color:var(--muted)}
+.card h3{font-size:1.02rem}
+.card p{color:var(--muted);font-size:.9rem}
+
+/* partners */
+.partners{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.partners span{border:1px solid var(--line);border-radius:10px;padding:14px 20px;font-weight:500;color:var(--muted);font-size:.9rem}
+
+/* page hero */
+.phero{background:var(--red);color:#fff;padding-block:56px 60px;position:relative;overflow:hidden}
+.phero h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:900}
+.phero p{margin-top:14px;max-width:60ch;opacity:.95;font-size:1.05rem}
+.phero::after{content:"";position:absolute;width:420px;height:420px;border:2px dashed rgba(255,255,255,.35);border-radius:50%;inset-inline-end:-120px;top:-160px}
+
+/* members */
+.members{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px}
+.member{text-align:center;min-width:0}
+.member .ph{aspect-ratio:1;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;color:#b6bec8;overflow:hidden;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);max-width:170px;margin:0 auto}
+.member .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.member.lead .ph{box-shadow:0 0 0 3px var(--red)}
+.member b{display:block;margin-top:14px}
+.member span{font-size:.85rem;color:var(--muted)}
+
+/* timeline */
+.tl{position:relative;display:grid;gap:26px;padding-inline-start:36px}
+.tl::before{content:"";position:absolute;inset-block:6px;inset-inline-start:11px;width:3px;background:linear-gradient(var(--red),var(--cedar))}
+.tl article{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .5s cubic-bezier(.2,.9,.3,1.2)}
+.tl article::before{content:"";position:absolute;inset-inline-start:-32px;top:22px;width:17px;height:17px;border-radius:50%;background:#fff;border:4px solid var(--red)}
+.tl article.gap{border-style:dashed;background:var(--surface)}
+.tl article.gap::before{border-color:#b6bec8}
+.tl .yr{font-family:var(--display);font-size:1.5rem;color:var(--red)}
+.tl h3{font-size:1.02rem;margin-top:6px}
+.tl p{color:var(--muted);font-size:.92rem;margin-top:6px}
+.tl article.pre{transform:translateX(-14px)}
+[dir="rtl"] .tl article.pre{transform:translateX(14px)}
+.tl article.in{transform:none}
+
+/* clubs */
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:26px}
+.filters input{flex:1 1 220px;padding:12px 16px;border:1px solid var(--line);border-radius:999px;font:inherit;min-width:0}
+.chip{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-size:.85rem}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--red)}
+.club-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:28px;align-items:start}
+@media (max-width:900px){.club-layout{grid-template-columns:1fr}}
+.club-list{display:grid;gap:14px}
+.club{display:grid;grid-template-columns:56px 1fr auto;gap:16px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0;transition:border-color .2s}
+.club:hover,.club.hl{border-color:var(--red)}
+.club .lg{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;color:#fff;font-family:var(--display);font-size:.85rem}
+.club > div{min-width:0}
+.club h3{font-size:.98rem}
+.club p{font-size:.82rem;color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags i{font-style:normal;font-size:.7rem;padding:2px 8px;border-radius:999px;background:var(--cedar-soft);color:var(--cedar)}
+.club .ag{font-size:.75rem;color:var(--muted);text-align:end;white-space:nowrap}
+.club .ag b{display:block;font-size:1.1rem;color:var(--ink);font-family:var(--display)}
+.map{background:var(--surface);border-radius:16px;padding:18px;position:sticky;top:110px}
+.map svg{width:100%;height:auto;display:block}
+.map .reg{fill:#dfe4ea;stroke:#fff;stroke-width:3;transition:fill .2s;cursor:pointer}
+.map .reg:hover{fill:#f6c4c6}
+.map .reg.on{fill:var(--red)}
+.map text{font-size:12px;fill:var(--ink);pointer-events:none;font-family:var(--body)}
+.map .dot{fill:var(--ink)}
+.map p{font-size:.8rem;color:var(--muted);margin-top:10px}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+
+/* competitions */
+.events{display:grid;gap:14px}
+.ev{display:grid;grid-template-columns:86px 1fr auto;gap:20px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:16px 20px;min-width:0}
+.ev > div{min-width:0}
+.ev .dt{text-align:center;background:var(--red-soft);border-radius:10px;padding:10px 4px;color:var(--red)}
+.ev .dt b{display:block;font-family:var(--display);font-size:1.6rem;line-height:1}
+.ev .dt span{font-size:.75rem;text-transform:uppercase}
+.ev h3{font-size:1rem}
+.ev p{font-size:.85rem;color:var(--muted)}
+.lvl{font-size:.72rem;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.lvl.nat{background:var(--cedar-soft);color:var(--cedar)}
+.lvl.int{background:var(--ink);color:#fff}
+@media (max-width:600px){.ev{grid-template-columns:70px 1fr}.ev .lvl{grid-column:2;justify-self:start}}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th,td{padding:12px 16px;text-align:start;border-bottom:1px solid var(--line)}
+th{background:var(--surface);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:500}
+td.num{font-variant-numeric:tabular-nums;text-align:end}
+th.num{text-align:end}
+tr:last-child td{border-bottom:0}
+tr.lb td{background:#fff8f8}
+.rk{font-family:var(--display);font-weight:700}
+.medal{display:inline-block;width:12px;height:12px;border-radius:50%;margin-inline-end:6px;vertical-align:-1px}
+
+/* athletes */
+.ath{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:22px}
+.acard{border-radius:16px;overflow:hidden;position:relative;color:#fff;min-height:300px;display:flex;flex-direction:column;justify-content:end;padding:20px;transition:transform .4s cubic-bezier(.3,1.5,.5,1)}
+.acard:hover{transform:translateY(-8px) rotate(1deg)}
+.acard .big{position:absolute;top:10px;inset-inline-end:14px;font-family:var(--display);font-size:5rem;opacity:.18;line-height:1}
+.acard small{opacity:.85;font-size:.8rem}
+.acard h3{font-size:1.25rem;margin-top:4px}
+.acard p{font-size:.85rem;opacity:.9;margin-top:8px}
+.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:56px}
+.wall div{border-radius:14px;padding:22px;background:var(--surface);min-width:0}
+.wall b{font-family:var(--display);font-size:2.6rem;display:block;line-height:1;font-variant-numeric:tabular-nums}
+.wall span{font-size:.88rem;color:var(--muted);display:block;margin-top:8px}
+
+/* 404 */
+.oops{text-align:center;padding-block:110px}
+.oops .flip{display:inline-block;font-size:5rem;font-family:var(--display);color:var(--red);animation:flip 2.4s cubic-bezier(.6,-.3,.4,1.3) infinite}
+@keyframes flip{0%,30%{transform:rotate(0)}70%,100%{transform:rotate(360deg)}}
+
+/* footer */
+footer{background:var(--ink);color:#c9d1da;padding-block:56px 32px;margin-top:40px}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+.f-grid > *{min-width:0}
+footer h4{color:#fff;font-size:.9rem;margin-bottom:14px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.9rem}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.credit{margin-top:44px;padding-top:22px;border-top:1px solid #2a333e;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.84rem}
+.credit b{color:#fff}
+.credit .by{display:inline-flex;align-items:center;gap:8px}
+.credit .by i{width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.6);opacity:.5}}
+@media (max-width:760px){.f-grid{grid-template-columns:1fr}.hero-grid{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.tl article.pre{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="draft" data-t="draft" data-html="1"></div>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#home">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="#fff"><path d="M16 3l3.2 6.4-2 .2 4.6 6-2.4.2 5.6 7.2H18v6h-4v-6H7l5.6-7.2-2.4-.2 4.6-6-2-.2z"/></svg></span>
+      <span class="brand-t"><b data-t="fed"></b><small data-t="fedSub"></small></span>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#home" data-t="nHome"></a>
+      <a href="#federation" data-t="nFed"></a>
+      <a href="#clubs" data-t="nClubs"></a>
+      <a href="#competitions" data-t="nComp"></a>
+      <a href="#athletes" data-t="nAth"></a>
+    </nav>
+    <div class="langs" role="group" aria-label="Language">
+      <button id="lg-ar" data-l="ar">ع</button><button id="lg-fr" data-l="fr">FR</button><button id="lg-en" data-l="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <h4 data-t="fed"></h4>
+        <p data-t="fAbout" style="font-size:.9rem;max-width:44ch"></p>
+      </div>
+      <div>
+        <h4 data-t="fLinks"></h4>
+        <ul><li><a href="#federation" data-t="nFed"></a></li><li><a href="#clubs" data-t="nClubs"></a></li><li><a href="#competitions" data-t="nComp"></a></li><li><a href="#athletes" data-t="nAth"></a></li></ul>
+      </div>
+      <div>
+        <h4 data-t="fContact"></h4>
+        <ul>
+          <li data-t="fCity"></li>
+          <li><a href="https://www.facebook.com/Lebanesegymnastics" target="_blank" rel="noopener">Facebook · /Lebanesegymnastics</a></li>
+          <li data-t="fMember"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="credit">
+      <span>© 2026 <span data-t="fed"></span></span>
+      <span class="by"><i></i><span data-t="credit" data-html="1"></span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- TEXT ---------- */
+const T={
+en:{draft:"Draft preview for the federation · <b>sample content</b> to be replaced with official data",
+ fed:"Lebanese Gymnastics Federation",fedSub:"Official website · Since 1961",
+ nHome:"Home",nFed:"Federation",nClubs:"Clubs & Academies",nComp:"Competitions",nAth:"Athletes",
+ heroA:"Fly high.",heroB:"Land proud.",heroP:"The official home of gymnastics in Lebanon. Find a club, follow every competition, and cheer for the athletes who carry our flag.",
+ cta1:"Find a club",cta2:"See results",
+ next:"Next event",nextT:"Lebanon National Championship 2026",nextW:"Artistic Gymnastics · Dbayeh",d:"days",h:"hours",m:"min",s:"sec",
+ ticker:["38 medals for Lebanon at the International Friendship Championship, Qatar","Luna Birjawi represents Lebanon at the 2026 Rhythmic Worlds","~900 gymnasts at the 2025 National Championship","Registrations open for the 2026 season","New judges course: January 2027"],
+ discE:"Disciplines",discH:"Seven ways to fly",
+ disc:[["Men's Artistic","Six apparatus, pure power"],["Women's Artistic","Vault, bars, beam, floor"],["Rhythmic","Ball, hoop, ribbon, clubs"],["Trampoline","Up to 8 metres high"],["Aerobic","Energy set to music"],["Acrobatic","Pairs and groups in balance"],["Gym for All","Every age, every level"]],
+ statE:"In numbers",st:["Year the federation was founded","Gymnasts at the 2025 nationals","Medals in Qatar, 2025","Member clubs & academies"],
+ presE:"A word from the President",presQ:"Gymnastics teaches our children discipline, courage and pride. This website opens the doors of our federation to every family, club and fan in Lebanon and beyond.",presN:"Jawdat Shaker",presT:"President, Lebanese Gymnastics Federation",
+ quizE:"Just for fun",quizH:"Which discipline are you?",quizP:"Three quick questions. Then we'll show you where to start.",
+ q:[["What's your vibe?",["Strong and fearless","Graceful and musical","I want to fly!"]],["Pick a superpower",["Balance","Rhythm","Bounce"]],["Your perfect weekend",["Climbing everything","Dancing","Jumping on the bed"]]],
+ qStep:"Question",qRes:"You're made for",qResP:"There are clubs near you that teach it. Your first class could be this week.",qAgain:"Try again",
+ res:{art:"Artistic Gymnastics",rg:"Rhythmic Gymnastics",tra:"Trampoline"},
+ newsE:"News",newsH:"Latest from the mat",all:"All news",
+ news:[["Feb 2025","International","38 medals for Lebanon in Qatar","Lebanese gymnasts bring home 38 medals from the International Friendship Championship."],["2026","Rhythmic","Luna Birjawi at the World Championships","Lebanon's rhythmic star competes among the best in the world."],["Dec 2025","National","900 gymnasts, one championship","The 2025 National Championship breaks participation records across Lebanon."]],
+ partE:"Members & partners",
+ fedH:"The Federation",fedP:"Since 1961 the Lebanese Gymnastics Federation has organised, developed and represented gymnastics in Lebanon, from the first cartwheel to the international podium.",
+ memE:"Executive committee",memH:"The people behind the federation",
+ roles:["President","Vice President","Secretary General","Treasurer","Member","Member","Member","Member"],
+ tbc:"Name to be added",
+ histE:"History",histH:"Gymnastics in Lebanon, 1961 to today",
+ hist:[["1961","The federation is founded","On 29 March 1961, the Lebanese Gymnastics Federation is created to lead the sport nationally.",0],["1960s–2010s","Our archive is coming","Old photos, first champions and historic events. Do you have memories to share? Send them to us.",1],["2022","Equipment from Japan","The Japan Gymnastics Association donates gymnastics equipment to Lebanon.",0],["2024","Mediterranean success","Pre-junior Liana Bachir Zghaib finishes 7th all-around out of 36 in Tunisia.",0],["2025","38 medals in Qatar","Lebanon shines at the International Friendship Championship.",0],["2025","A record championship","About 900 gymnasts compete at the National Championship.",0],["2026","On the world stage","Luna Birjawi represents Lebanon at the Rhythmic World Championships.",0]],
+ clubsP:"Every recognised club and academy in Lebanon. Filter by region and discipline, then contact them directly.",
+ search:"Search a club or town…",allR:"All regions",allD:"All disciplines",ages:"Ages",gymn:"gymnasts",noClub:"No club matches. Try another region or discipline.",mapNote:"Tap a region on the map to filter.",
+ reg:{beirut:"Beirut",metn:"Metn",kesr:"Keserwan",north:"North",south:"South",bekaa:"Bekaa",mount:"Mount Lebanon"},
+ dsh:{art:"Artistic",rg:"Rhythmic",tra:"Trampoline",aer:"Aerobic",gfa:"Gym for All"},
+ compP:"Every national and international event, and every score.",
+ upE:"Calendar",upH:"Upcoming events",nat:"National",int:"International",
+ evs:[["13","Dec","Lebanon National Championship · Men's Artistic","Bodyfit, Dbayeh","nat"],["20","Dec","Lebanon National Championship · Women's Artistic","Bodyfit, Dbayeh","nat"],["17","Jan","Rhythmic Gymnastics Cup","Beirut","nat"],["14","Feb","International Friendship Championship","Doha, Qatar","int"],["21","Mar","Trampoline & Gym for All Festival","Tripoli","nat"]],
+ resE:"Results",resH:"Latest results",
+ tabs:["Asian Rhythmic Championships","Rhythmic Worlds 2026","National Ch. 2025 · WAG Juniors"],
+ th:["Rank","Gymnast","Club / Country","Total"],
+ athP:"Meet the gymnasts who carry the cedar on their chest.",
+ achE:"Achievements",ach:["Medals in Qatar, 2025","World Championships appearances","Asian Championships gymnasts","Founded in"],
+ teamE:"National team",teamH:"Our athletes",
+ aths:[["Rhythmic","Luna Birjawi","World Championships 2026 · Asian Championships 31st"],["Rhythmic","Christine Ajjour","Asian Championships · national team"],["Rhythmic","Yara Semaan","Asian Championships · national team"],["Artistic · Pre-junior","Liana Bachir Zghaib","7th all-around, Mediterranean tournament, Tunisia"]],
+ oops:"This page over-rotated.",oopsP:"Let's get you back on the mat.",back:"Back to home",
+ fAbout:"The national governing body for gymnastics in Lebanon. Member of World Gymnastics (FIG) and the Asian Gymnastics Union.",fLinks:"Explore",fContact:"Contact",fCity:"Beirut, Lebanon",fMember:"FIG · AGU member",
+ credit:"Designed &amp; developed by <b>Ahmad El Lahib</b>"},
+fr:{draft:"Aperçu de travail pour la fédération · <b>contenu d'exemple</b> à remplacer par les données officielles",
+ fed:"Fédération Libanaise de Gymnastique",fedSub:"Site officiel · Depuis 1961",
+ nHome:"Accueil",nFed:"Fédération",nClubs:"Clubs & Académies",nComp:"Compétitions",nAth:"Athlètes",
+ heroA:"Vole haut.",heroB:"Atterris fier.",heroP:"La maison officielle de la gymnastique au Liban. Trouvez un club, suivez chaque compétition et encouragez les athlètes qui portent nos couleurs.",
+ cta1:"Trouver un club",cta2:"Voir les résultats",
+ next:"Prochain événement",nextT:"Championnat national du Liban 2026",nextW:"Gymnastique artistique · Dbayeh",d:"jours",h:"heures",m:"min",s:"sec",
+ ticker:["38 médailles pour le Liban au Championnat international de l'Amitié, Qatar","Luna Birjawi représente le Liban aux Mondiaux de rythmique 2026","~900 gymnastes au Championnat national 2025","Inscriptions ouvertes pour la saison 2026","Nouveau cours de juges : janvier 2027"],
+ discE:"Disciplines",discH:"Sept façons de s'envoler",
+ disc:[["Artistique masculine","Six agrès, la puissance pure"],["Artistique féminine","Saut, barres, poutre, sol"],["Rythmique","Ballon, cerceau, ruban, massues"],["Trampoline","Jusqu'à 8 mètres de haut"],["Aérobic","L'énergie en musique"],["Acrobatique","Duos et groupes en équilibre"],["Gym pour tous","Tous les âges, tous les niveaux"]],
+ statE:"En chiffres",st:["Année de fondation","Gymnastes au national 2025","Médailles au Qatar, 2025","Clubs et académies membres"],
+ presE:"Le mot du Président",presQ:"La gymnastique apprend à nos enfants la discipline, le courage et la fierté. Ce site ouvre les portes de notre fédération à chaque famille, chaque club et chaque supporter, au Liban et ailleurs.",presN:"Jawdat Shaker",presT:"Président, Fédération Libanaise de Gymnastique",
+ quizE:"Pour s'amuser",quizH:"Quelle discipline es-tu ?",quizP:"Trois petites questions. Ensuite, on te montre par où commencer.",
+ q:[["Ton style ?",["Fort et sans peur","Gracieux et musical","Je veux voler !"]],["Choisis un super-pouvoir",["L'équilibre","Le rythme","Le rebond"]],["Ton week-end parfait",["Grimper partout","Danser","Sauter sur le lit"]]],
+ qStep:"Question",qRes:"Tu es fait pour",qResP:"Des clubs près de chez toi l'enseignent. Ton premier cours peut être cette semaine.",qAgain:"Recommencer",
+ res:{art:"la Gymnastique artistique",rg:"la Gymnastique rythmique",tra:"le Trampoline"},
+ newsE:"Actualités",newsH:"Les dernières nouvelles",all:"Toutes les actualités",
+ news:[["Fév 2025","International","38 médailles pour le Liban au Qatar","Les gymnastes libanais rapportent 38 médailles du Championnat international de l'Amitié."],["2026","Rythmique","Luna Birjawi aux Championnats du monde","La star libanaise de la rythmique parmi les meilleures du monde."],["Déc 2025","National","900 gymnastes, un championnat","Le Championnat national 2025 bat des records de participation."]],
+ partE:"Membre de & partenaires",
+ fedH:"La Fédération",fedP:"Depuis 1961, la Fédération Libanaise de Gymnastique organise, développe et représente la gymnastique au Liban, de la première roue jusqu'au podium international.",
+ memE:"Comité exécutif",memH:"L'équipe de la fédération",
+ roles:["Président","Vice-président","Secrétaire général","Trésorier","Membre","Membre","Membre","Membre"],
+ tbc:"Nom à ajouter",
+ histE:"Histoire",histH:"La gymnastique au Liban, de 1961 à aujourd'hui",
+ hist:[["1961","Création de la fédération","Le 29 mars 1961, la Fédération Libanaise de Gymnastique est créée pour diriger ce sport au niveau national.",0],["1960–2010","Nos archives arrivent","Photos anciennes, premiers champions, moments historiques. Vous avez des souvenirs ? Envoyez-les-nous.",1],["2022","Du matériel venu du Japon","L'Association japonaise de gymnastique offre du matériel au Liban.",0],["2024","Succès méditerranéen","La pré-junior Liana Bachir Zghaib termine 7e du concours général sur 36 en Tunisie.",0],["2025","38 médailles au Qatar","Le Liban brille au Championnat international de l'Amitié.",0],["2025","Un championnat record","Environ 900 gymnastes au Championnat national.",0],["2026","Sur la scène mondiale","Luna Birjawi représente le Liban aux Championnats du monde de rythmique.",0]],
+ clubsP:"Tous les clubs et académies reconnus au Liban. Filtrez par région et discipline, puis contactez-les directement.",
+ search:"Chercher un club ou une ville…",allR:"Toutes les régions",allD:"Toutes les disciplines",ages:"Âges",gymn:"gymnastes",noClub:"Aucun club trouvé. Essayez une autre région ou discipline.",mapNote:"Touchez une région sur la carte pour filtrer.",
+ reg:{beirut:"Beyrouth",metn:"Metn",kesr:"Kesrouan",north:"Nord",south:"Sud",bekaa:"Békaa",mount:"Mont-Liban"},
+ dsh:{art:"Artistique",rg:"Rythmique",tra:"Trampoline",aer:"Aérobic",gfa:"Gym pour tous"},
+ compP:"Chaque événement national et international, et chaque note.",
+ upE:"Calendrier",upH:"Événements à venir",nat:"National",int:"International",
+ evs:[["13","Déc","Championnat national · Artistique masculine","Bodyfit, Dbayeh","nat"],["20","Déc","Championnat national · Artistique féminine","Bodyfit, Dbayeh","nat"],["17","Jan","Coupe de gymnastique rythmique","Beyrouth","nat"],["14","Fév","Championnat international de l'Amitié","Doha, Qatar","int"],["21","Mar","Festival Trampoline & Gym pour tous","Tripoli","nat"]],
+ resE:"Résultats",resH:"Derniers résultats",
+ tabs:["Championnats d'Asie de rythmique","Mondiaux de rythmique 2026","National 2025 · GAF Juniors"],
+ th:["Rang","Gymnaste","Club / Pays","Total"],
+ athP:"Découvrez les gymnastes qui portent le cèdre sur le cœur.",
+ achE:"Palmarès",ach:["Médailles au Qatar, 2025","Participation aux Mondiaux","Gymnastes aux Championnats d'Asie","Fondée en"],
+ teamE:"Équipe nationale",teamH:"Nos athlètes",
+ aths:[["Rythmique","Luna Birjawi","Mondiaux 2026 · 31e aux Championnats d'Asie"],["Rythmique","Christine Ajjour","Championnats d'Asie · équipe nationale"],["Rythmique","Yara Semaan","Championnats d'Asie · équipe nationale"],["Artistique · Pré-junior","Liana Bachir Zghaib","7e du concours général, tournoi méditerranéen, Tunisie"]],
+ oops:"Cette page a trop tourné.",oopsP:"On te ramène sur le tapis.",back:"Retour à l'accueil",
+ fAbout:"L'instance nationale de la gymnastique au Liban. Membre de World Gymnastics (FIG) et de l'Union asiatique de gymnastique.",fLinks:"Explorer",fContact:"Contact",fCity:"Beyrouth, Liban",fMember:"Membre FIG · UAG",
+ credit:"Conçu et développé par <b>Ahmad El Lahib</b>"},
+ar:{draft:"نسخة تجريبية للاتحاد · <b>محتوى تجريبي</b> سيُستبدل بالبيانات الرسمية",
+ fed:"الاتحاد اللبناني للجمباز",fedSub:"الموقع الرسمي · منذ 1961",
+ nHome:"الرئيسية",nFed:"الاتحاد",nClubs:"الأندية والأكاديميات",nComp:"البطولات",nAth:"اللاعبون",
+ heroA:"حلّق عالياً.",heroB:"واهبط بفخر.",heroP:"البيت الرسمي للجمباز في لبنان. ابحث عن نادٍ، تابع كل بطولة، وشجّع الأبطال الذين يرفعون علمنا.",
+ cta1:"ابحث عن نادٍ",cta2:"النتائج",
+ next:"الحدث القادم",nextT:"بطولة لبنان للجمباز 2026",nextW:"الجمباز الفني · ضبيه",d:"يوم",h:"ساعة",m:"دقيقة",s:"ثانية",
+ ticker:["38 ميدالية للبنان في بطولة الصداقة الدولية في قطر","لونا برجاوي تمثّل لبنان في بطولة العالم للجمباز الإيقاعي 2026","نحو 900 لاعبة ولاعب في بطولة لبنان 2025","فتح باب التسجيل لموسم 2026","دورة حكام جديدة: كانون الثاني 2027"],
+ discE:"الاختصاصات",discH:"سبع طرق للتحليق",
+ disc:[["الجمباز الفني للرجال","ستة أجهزة، قوة خالصة"],["الجمباز الفني للسيدات","حصان القفز، المتوازي، العارضة، الحركات الأرضية"],["الجمباز الإيقاعي","كرة، طوق، شريط، صولجان"],["الترامبولين","حتى 8 أمتار ارتفاعاً"],["الأيروبيك","طاقة على إيقاع الموسيقى"],["الأكروباتيك","ثنائيات ومجموعات في توازن"],["الجمباز للجميع","لكل الأعمار وكل المستويات"]],
+ statE:"بالأرقام",st:["سنة تأسيس الاتحاد","لاعب ولاعبة في بطولة لبنان 2025","ميدالية في قطر 2025","نادٍ وأكاديمية أعضاء"],
+ presE:"كلمة الرئيس",presQ:"الجمباز يعلّم أولادنا الانضباط والشجاعة والفخر. هذا الموقع يفتح أبواب اتحادنا أمام كل عائلة وكل نادٍ وكل محبّ لهذه الرياضة، في لبنان وخارجه.",presN:"جودت شاكر",presT:"رئيس الاتحاد اللبناني للجمباز",
+ quizE:"للتسلية",quizH:"أي اختصاص يناسبك؟",quizP:"ثلاثة أسئلة سريعة، ثم نريك من أين تبدأ.",
+ q:[["ما هو أسلوبك؟",["قوي وجريء","رشيق وموسيقي","أريد أن أطير!"]],["اختر قوة خارقة",["التوازن","الإيقاع","القفز"]],["عطلتك المثالية",["أتسلّق كل شيء","أرقص","أقفز على السرير"]]],
+ qStep:"السؤال",qRes:"أنت مخلوق لـ",qResP:"هناك أندية قريبة منك تعلّمه. حصتك الأولى قد تكون هذا الأسبوع.",qAgain:"أعد المحاولة",
+ res:{art:"الجمباز الفني",rg:"الجمباز الإيقاعي",tra:"الترامبولين"},
+ newsE:"الأخبار",newsH:"آخر الأخبار",all:"كل الأخبار",
+ news:[["شباط 2025","دولي","38 ميدالية للبنان في قطر","لاعبو لبنان يعودون بـ38 ميدالية من بطولة الصداقة الدولية."],["2026","إيقاعي","لونا برجاوي في بطولة العالم","نجمة الجمباز الإيقاعي اللبنانية بين أفضل لاعبات العالم."],["كانون الأول 2025","محلي","900 لاعب في بطولة واحدة","بطولة لبنان 2025 تحطّم أرقام المشاركة في كل المناطق."]],
+ partE:"العضوية والشركاء",
+ fedH:"الاتحاد",fedP:"منذ عام 1961 ينظّم الاتحاد اللبناني للجمباز هذه الرياضة ويطوّرها ويمثّلها، من أول شقلبة حتى منصّات التتويج الدولية.",
+ memE:"اللجنة التنفيذية",memH:"فريق الاتحاد",
+ roles:["الرئيس","نائب الرئيس","أمين السر","أمين الصندوق","عضو","عضو","عضو","عضو"],
+ tbc:"الاسم قريباً",
+ histE:"التاريخ",histH:"الجمباز في لبنان من 1961 حتى اليوم",
+ hist:[["1961","تأسيس الاتحاد","في 29 آذار 1961 تأسس الاتحاد اللبناني للجمباز ليقود هذه الرياضة على المستوى الوطني.",0],["1960–2010","أرشيفنا قادم","صور قديمة، أوائل الأبطال، ولحظات تاريخية. لديك ذكريات؟ أرسلها إلينا.",1],["2022","معدات من اليابان","الاتحاد الياباني للجمباز يقدّم معدات جمباز إلى لبنان.",0],["2024","نجاح متوسطي","اللاعبة ليانا بشير زغيب تحلّ سابعة في الترتيب العام من أصل 36 في تونس.",0],["2025","38 ميدالية في قطر","لبنان يتألق في بطولة الصداقة الدولية.",0],["2025","بطولة قياسية","نحو 900 لاعب ولاعبة في بطولة لبنان.",0],["2026","على المسرح العالمي","لونا برجاوي تمثّل لبنان في بطولة العالم للجمباز الإيقاعي.",0]],
+ clubsP:"كل الأندية والأكاديميات المعترف بها في لبنان. اختر المنطقة والاختصاص، ثم تواصل معهم مباشرة.",
+ search:"ابحث عن نادٍ أو بلدة…",allR:"كل المناطق",allD:"كل الاختصاصات",ages:"الأعمار",gymn:"لاعب",noClub:"لا يوجد نادٍ مطابق. جرّب منطقة أو اختصاصاً آخر.",mapNote:"اضغط على منطقة في الخريطة للتصفية.",
+ reg:{beirut:"بيروت",metn:"المتن",kesr:"كسروان",north:"الشمال",south:"الجنوب",bekaa:"البقاع",mount:"جبل لبنان"},
+ dsh:{art:"فني",rg:"إيقاعي",tra:"ترامبولين",aer:"أيروبيك",gfa:"للجميع"},
+ compP:"كل البطولات المحلية والدولية، وكل العلامات.",
+ upE:"الروزنامة",upH:"البطولات القادمة",nat:"محلية",int:"دولية",
+ evs:[["13","ك1","بطولة لبنان · الجمباز الفني للرجال","بودي فيت، ضبيه","nat"],["20","ك1","بطولة لبنان · الجمباز الفني للسيدات","بودي فيت، ضبيه","nat"],["17","ك2","كأس الجمباز الإيقاعي","بيروت","nat"],["14","شباط","بطولة الصداقة الدولية","الدوحة، قطر","int"],["21","آذار","مهرجان الترامبولين والجمباز للجميع","طرابلس","nat"]],
+ resE:"النتائج",resH:"آخر النتائج",
+ tabs:["بطولة آسيا للإيقاعي","بطولة العالم للإيقاعي 2026","بطولة لبنان 2025 · ناشئات فني"],
+ th:["المركز","اللاعب","النادي / البلد","المجموع"],
+ athP:"تعرّف على الأبطال الذين يحملون الأرزة على صدورهم.",
+ achE:"الإنجازات",ach:["ميدالية في قطر 2025","مشاركة في بطولة العالم","لاعبات في بطولة آسيا","سنة التأسيس"],
+ teamE:"المنتخب الوطني",teamH:"لاعبونا",
+ aths:[["إيقاعي","لونا برجاوي","بطولة العالم 2026 · المركز 31 في بطولة آسيا"],["إيقاعي","كريستين عجّور","بطولة آسيا · المنتخب الوطني"],["إيقاعي","يارا سمعان","بطولة آسيا · المنتخب الوطني"],["فني · ما قبل الناشئين","ليانا بشير زغيب","المركز السابع في الترتيب العام، دورة متوسطية، تونس"]],
+ oops:"هذه الصفحة دارت أكثر من اللازم.",oopsP:"لنعدك إلى البساط.",back:"العودة إلى الرئيسية",
+ fAbout:"الهيئة الوطنية المسؤولة عن الجمباز في لبنان. عضو في الاتحاد الدولي للجمباز والاتحاد الآسيوي للجمباز.",fLinks:"تصفّح",fContact:"تواصل معنا",fCity:"بيروت، لبنان",fMember:"عضو FIG · AGU",
+ credit:"تصميم وتطوير <b>Ahmad El Lahib</b>"}
+};
+
+/* ---------- MOCK DATA ---------- */
+const CLUBS=[
+ {n:"Buddha Sports Club",ar:"نادي بودا الرياضي",town:{en:"Adma",fr:"Adma",ar:"أدما"},r:"kesr",d:["art","gfa"],a:"4–18",g:140,c:"#d8232a"},
+ {n:"Al Riyadi Club",ar:"النادي الرياضي",town:{en:"Manara, Beirut",fr:"Manara, Beyrouth",ar:"المنارة، بيروت"},r:"beirut",d:["art","rg"],a:"5–18",g:120,c:"#11161d"},
+ {n:"Bodyfit Gymnastics",ar:"بودي فيت",town:{en:"Dbayeh",fr:"Dbayeh",ar:"ضبيه"},r:"metn",d:["art","tra","gfa"],a:"3–18",g:180,c:"#0b8a4c"},
+ {n:"Stars Gymnastics",ar:"ستارز للجمباز",town:{en:"Tripoli",fr:"Tripoli",ar:"طرابلس"},r:"north",d:["art","rg"],a:"5–16",g:95,c:"#c9962b"},
+ {n:"Hoops Club",ar:"نادي هوبس",town:{en:"Beirut",fr:"Beyrouth",ar:"بيروت"},r:"beirut",d:["art","aer"],a:"4–16",g:80,c:"#2f5bd3"},
+ {n:"Hariri Sports Complex",ar:"مجمع الحريري الرياضي",town:{en:"Saida",fr:"Saïda",ar:"صيدا"},r:"south",d:["art","rg","gfa"],a:"5–18",g:110,c:"#7a3fb8"},
+ {n:"Lycée National Academy",ar:"أكاديمية الليسيه ناسيونال",town:{en:"Zahle",fr:"Zahlé",ar:"زحلة"},r:"bekaa",d:["art","gfa"],a:"4–14",g:70,c:"#e07a1f"},
+ {n:"Cedars Flip Academy",ar:"أكاديمية الأرز فليب",town:{en:"Baabda",fr:"Baabda",ar:"بعبدا"},r:"mount",d:["tra","aer","gfa"],a:"3–12",g:60,c:"#d8232a"}
+];
+const RESULTS=[
+ [[31,"Luna Birjawi","لونا برجاوي","Lebanon","45.950",1],[34,"Christine Ajjour","كريستين عجّور","Lebanon","27.600",1],[36,"Yara Semaan","يارا سمعان","Lebanon","26.250",1]],
+ [[93,"Luna Birjawi","لونا برجاوي","Lebanon","42.100",1]],
+ [[1,"Maya Haddad","مايا حداد","Bodyfit","51.300",0],[2,"Lea Khoury","ليا خوري","Buddha SC","50.850",0],[3,"Nour Saab","نور صعب","Al Riyadi","50.400",0],[4,"Rita Nassar","ريتا نصار","Stars Tripoli","49.950",0],[5,"Sara Fakhoury","سارة فاخوري","Hoops","49.700",0]]
+];
+
+/* ---------- ICONS (simple gymnast pictograms) ---------- */
+const IC=[
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 14h36M12 14v28M36 14v28"/><circle cx="24" cy="22" r="3" fill="currentColor"/><path d="M18 14l6 8 6-8M24 25v8l-5 7M24 33l5 7"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 38h40M14 38v6M34 38v6"/><circle cx="30" cy="12" r="3" fill="currentColor"/><path d="M30 15l-4 10-8-6M26 25l4 13M26 25l-10 4"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="18" cy="10" r="3" fill="currentColor"/><path d="M18 13v14l-6 13M18 27l6 13M18 18l10-6"/><path d="M28 12c10-4 16 6 8 12s-4 16 6 14" stroke-dasharray="3 4"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 40q18 6 36 0M10 40v4M38 40v4"/><circle cx="24" cy="8" r="3" fill="currentColor"/><path d="M24 11v12M16 6l8 9 8-9M24 23l-5 8M24 23l5 8"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="24" cy="9" r="3" fill="currentColor"/><path d="M24 12v14M12 10l12 8 12-8M24 26l-10 14M24 26l12 6"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="24" cy="5" r="3" fill="currentColor"/><path d="M24 8v8M18 12h12"/><circle cx="24" cy="22" r="3" fill="currentColor"/><path d="M24 25v8l-6 9M24 33l6 9M14 24l10-4 10 4"/></svg>',
+ '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="14" cy="12" r="3" fill="currentColor"/><circle cx="34" cy="16" r="3" fill="currentColor"/><path d="M14 15v12l-4 12M14 27l4 12M34 19v10l-4 10M34 29l4 10M14 20l20 2"/></svg>'
+];
+const MARK='<svg viewBox="0 0 32 32" fill="#fff" width="60%"><path d="M16 3l3.2 6.4-2 .2 4.6 6-2.4.2 5.6 7.2H18v6h-4v-6H7l5.6-7.2-2.4-.2 4.6-6-2-.2z"/></svg>';
+
+/* ---------- STATE ---------- */
+let L='en';try{L=localStorage.getItem('lgf-site-lang')||'en'}catch(e){}
+if(!T[L])L='en';
+const S={region:'all',disc:'all',q:'',tab:0,quiz:{i:0,score:{art:0,rg:0,tra:0}}};
+const t=k=>T[L][k];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- VIEWS ---------- */
+function home(){
+ const x=T[L];
+ return `
+ <section class="hero"><canvas id="rib" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+   <div><h1>${x.heroA}<em>${x.heroB}</em></h1><p>${x.heroP}</p>
+    <div class="ctas"><a class="btn btn-white" href="#clubs">${x.cta1} <span class="arrow">→</span></a><a class="btn btn-line" href="#competitions">${x.cta2}</a></div></div>
+   <div class="count"><small>${x.next}</small><h3>${x.nextT}</h3><p class="where">${x.nextW}</p>
+    <div class="clock" id="clock"></div></div>
+  </div>
+ </section>
+ <div class="ticker" aria-hidden="true"><div class="ticker-in">${[...x.ticker,...x.ticker].map(s=>`<span>${s}</span>`).join('')}</div></div>
+ <section><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">${x.discE}</span><h2 class="h2">${x.discH}</h2></div></div>
+  <div class="disc">${x.disc.map((d,i)=>`<article>${IC[i]}<h3>${d[0]}</h3><p>${d[1]}</p></article>`).join('')}</div>
+ </div></section>
+ <section class="stats"><div class="wrap">
+  <span class="eyebrow">${x.statE}</span>
+  <div class="stat-grid">
+   ${[[1961,''],[900,'+'],[38,''],[CLUBS.length*6,'+']].map((v,i)=>`<div class="stat"><b data-count="${v[0]}" data-suf="${v[1]}">${v[0]}${v[1]}</b><span>${x.st[i]}</span></div>`).join('')}
+  </div>
+ </div></section>
+ <section><div class="wrap pres">
+  <img src="president.jpg" alt="${esc(x.presN)}" width="400" height="600">
+  <div><span class="eyebrow">${x.presE}</span><blockquote>${x.presQ}</blockquote>
+   <p class="sign"><b>${x.presN}</b><span>${x.presT}</span></p></div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap"><div class="quiz">
+  <div><span class="eyebrow">${x.quizE}</span><h2 class="h2">${x.quizH}</h2><p class="lede" style="color:#c9d1da">${x.quizP}</p></div>
+  <div class="q-card" id="quiz"></div>
+ </div></div></section>
+ <section style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">${x.newsE}</span><h2 class="h2">${x.newsH}</h2></div><a class="btn btn-line" href="#home" onclick="return false">${x.all}</a></div>
+  <div class="cards">${x.news.map((n,i)=>`<article class="card"><div class="img"><i style="background:${['linear-gradient(135deg,#d8232a,#7a0f14)','linear-gradient(135deg,#11161d,#3a4656)','linear-gradient(135deg,#0b8a4c,#06502c)'][i]}"></i><i style="display:grid;place-items:center;color:rgba(255,255,255,.9)">${IC[[1,2,0][i]].replace('<svg','<svg width="38%"')}</i><span>${n[1]}</span></div><div class="body"><time>${n[0]}</time><h3>${n[2]}</h3><p>${n[3]}</p></div></article>`).join('')}</div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap">
+  <span class="eyebrow">${x.partE}</span>
+  <div class="partners"><span>World Gymnastics · FIG</span><span>Asian Gymnastics Union</span><span>Lebanese Olympic Committee</span><span>Japan Gymnastics Association</span><span>+ Your logo here</span></div>
+ </div></section>`;
+}
+function federation(){
+ const x=T[L];
+ return `<section class="phero"><div class="wrap"><span class="eyebrow" style="color:#fff;opacity:.85">${x.nFed}</span><h1>${x.fedH}</h1><p>${x.fedP}</p></div></section>
+ <section><div class="wrap">
+  <span class="eyebrow">${x.memE}</span><h2 class="h2" style="margin-bottom:36px">${x.memH}</h2>
+  <div class="members">${x.roles.map((r,i)=>i===0
+    ?`<div class="member lead"><div class="ph"><img src="president.jpg" alt="${esc(x.presN)}"></div><b>${x.presN}</b><span>${r}</span></div>`
+    :`<div class="member"><div class="ph">LGF</div><b>${x.tbc}</b><span>${r}</span></div>`).join('')}</div>
+ </div></section>
+ <section style="background:var(--surface)"><div class="wrap" style="max-width:820px">
+  <span class="eyebrow">${x.histE}</span><h2 class="h2" style="margin-bottom:36px">${x.histH}</h2>
+  <div class="tl">${x.hist.map(h=>`<article class="${h[3]?'gap ':''}pre"><div class="yr">${h[0]}</div><h3>${h[1]}</h3><p>${h[2]}</p></article>`).join('')}</div>
+ </div></section>`;
+}
+function clubs(){
+ const x=T[L];
+ const regs=Object.keys(x.reg), ds=Object.keys(x.dsh);
+ return `<section class="phero"><div class="wrap"><span class="eyebrow" style="color:#fff;opacity:.85">${x.nClubs}</span><h1>${x.nClubs}</h1><p>${x.clubsP}</p></div></section>
+ <section><div class="wrap">
+  <div class="filters"><input id="club-q" type="search" placeholder="${esc(x.search)}" value="${esc(S.q)}" aria-label="${esc(x.search)}"></div>
+  <div class="filters" id="dchips">${['all',...ds].map(d=>`<button class="chip" data-d="${d}" aria-pressed="${S.disc===d}">${d==='all'?x.allD:x.dsh[d]}</button>`).join('')}</div>
+  <div class="club-layout">
+   <div class="club-list" id="club-list"></div>
+   <aside class="map">${lebMap()}<p>${x.mapNote} <button class="chip" data-r="all" style="padding:4px 10px;font-size:.75rem" aria-pressed="${S.region==='all'}">${x.allR}</button></p></aside>
+  </div>
+ </div></section>`;
+}
+function lebMap(){
+ const x=T[L];
+ /* stylised Lebanon (north at top), seven regions */
+ const R={north:"M70,10 L150,6 L170,40 L150,92 L96,104 L56,80 Z",
+  kesr:"M56,80 L96,104 L104,140 L62,150 L46,118 Z",
+  metn:"M46,118 L62,150 L104,140 L110,170 L60,184 L38,160 Z",
+  beirut:"M20,170 L38,160 L60,184 L44,200 L18,196 Z",
+  mount:"M18,196 L44,200 L60,184 L110,170 L116,214 L56,246 L14,232 Z",
+  south:"M14,232 L56,246 L116,214 L126,268 L92,318 L30,320 L8,280 Z",
+  bekaa:"M150,92 L196,96 L210,160 L190,250 L126,268 L116,214 L110,170 L104,140 L96,104 Z"};
+ const L2={north:[110,55],kesr:[76,124],metn:[74,160],beirut:[34,184],mount:[64,218],south:[66,284],bekaa:[160,170]};
+ return `<svg viewBox="0 0 220 330" role="img" aria-label="Map">${Object.keys(R).map(k=>`<path class="reg ${S.region===k?'on':''}" data-r="${k}" d="${R[k]}"><title>${x.reg[k]}</title></path>`).join('')}
+ ${Object.keys(L2).map(k=>`<text x="${L2[k][0]}" y="${L2[k][1]}" text-anchor="middle">${x.reg[k]}</text>`).join('')}</svg>`;
+}
+function renderClubs(){
+ const x=T[L], el=document.getElementById('club-list'); if(!el)return;
+ const q=S.q.trim().toLowerCase();
+ const list=CLUBS.filter(c=>(S.region==='all'||c.r===S.region)&&(S.disc==='all'||c.d.includes(S.disc))&&(!q||(c.n+c.ar+c.town.en+c.town.ar+c.town.fr).toLowerCase().includes(q)));
+ el.innerHTML=list.length?list.map(c=>`<article class="club"><div class="lg" style="background:${c.c}">${MARK}</div><div><h3>${L==='ar'?c.ar:c.n}<span class="sample">${L==='ar'?'تجريبي':L==='fr'?'exemple':'sample'}</span></h3><p>${c.town[L]} · ${x.reg[c.r]}</p><div class="tags">${c.d.map(d=>`<i>${x.dsh[d]}</i>`).join('')}</div></div><div class="ag"><b>${c.g}</b>${x.gymn}<br>${x.ages} ${c.a}</div></article>`).join(''):`<div class="empty">${x.noClub}</div>`;
+}
+function competitions(){
+ const x=T[L];
+ return `<section class="phero"><div class="wrap"><span class="eyebrow" style="color:#fff;opacity:.85">${x.nComp}</span><h1>${x.nComp}</h1><p>${x.compP}</p></div></section>
+ <section><div class="wrap">
+  <span class="eyebrow">${x.upE}</span><h2 class="h2" style="margin-bottom:28px">${x.upH}<span class="sample">${L==='ar'?'تواريخ تجريبية':L==='fr'?'dates d\'exemple':'sample dates'}</span></h2>
+  <div class="events">${x.evs.map(e=>`<article class="ev"><div class="dt"><b>${e[0]}</b><span>${e[1]}</span></div><div><h3>${e[2]}</h3><p>${e[3]}</p></div><span class="lvl ${e[4]}">${x[e[4]]}</span></article>`).join('')}</div>
+ </div></section>
+ <section style="padding-top:0"><div class="wrap">
+  <span class="eyebrow">${x.resE}</span><h2 class="h2" style="margin-bottom:24px">${x.resH}</h2>
+  <div class="tabs" id="rtabs">${x.tabs.map((n,i)=>`<button class="chip" data-tab="${i}" aria-pressed="${S.tab===i}">${n}</button>`).join('')}</div>
+  <div class="tbl" id="rtable"></div>
+ </div></section>`;
+}
+function renderTable(){
+ const x=T[L],el=document.getElementById('rtable');if(!el)return;
+ const rows=RESULTS[S.tab];
+ const mc=['#c9962b','#9aa4ae','#b06a32'];
+ el.innerHTML=`<table><thead><tr><th>${x.th[0]}</th><th>${x.th[1]}</th><th>${x.th[2]}</th><th class="num">${x.th[3]}</th></tr></thead><tbody>${rows.map(r=>`<tr class="${r[5]?'lb':''}"><td class="rk">${r[0]<=3&&S.tab===2?`<span class="medal" style="background:${mc[r[0]-1]}"></span>`:''}${r[0]}</td><td>${L==='ar'?r[2]:r[1]}</td><td>${r[3]==='Lebanon'?(L==='ar'?'لبنان':L==='fr'?'Liban':'Lebanon'):r[3]}</td><td class="num">${r[4]}</td></tr>`).join('')}</tbody></table>${S.tab===2?`<p style="padding:10px 16px;font-size:.78rem;color:var(--muted)">${L==='ar'?'نتائج تجريبية':L==='fr'?'Résultats d\'exemple':'Sample results'}</p>`:''}`;
+}
+function athletes(){
+ const x=T[L];
+ const g=['linear-gradient(160deg,#d8232a,#6d0d12)','linear-gradient(160deg,#11161d,#3a4656)','linear-gradient(160deg,#0b8a4c,#053d22)','linear-gradient(160deg,#c9962b,#6b4a0c)'];
+ return `<section class="phero"><div class="wrap"><span class="eyebrow" style="color:#fff;opacity:.85">${x.nAth}</span><h1>${x.teamH}</h1><p>${x.athP}</p></div></section>
+ <section><div class="wrap">
+  <span class="eyebrow">${x.achE}</span>
+  <div class="wall">${[[38,'var(--gold)'],[1,'var(--red)'],[3,'var(--cedar)'],[1961,'var(--ink)']].map((v,i)=>`<div><b data-count="${v[0]}" style="color:${v[1]}">${v[0]}</b><span>${x.ach[i]}</span></div>`).join('')}</div>
+  <span class="eyebrow">${x.teamE}</span>
+  <div class="ath">${x.aths.map((a,i)=>`<article class="acard" style="background:${g[i]}"><span class="big">${a[1].split(' ').map(w=>w[0]).join('').slice(0,2)}</span><div style="position:absolute;top:20px;inset-inline-start:20px;width:60px;color:rgba(255,255,255,.85)">${IC[i<3?2:1]}</div><small>${a[0]}</small><h3>${a[1]}</h3><p>${a[2]}</p></article>`).join('')}</div>
+ </div></section>`;
+}
+function oops(){const x=T[L];return `<section class="oops"><div class="wrap"><div class="flip">LGF</div><h1 class="h2" style="margin-top:20px">${x.oops}</h1><p class="lede" style="margin:14px auto 26px">${x.oopsP}</p><a class="btn btn-red" href="#home">${x.back}</a></div></section>`}
+
+/* ---------- QUIZ ---------- */
+function renderQuiz(){
+ const el=document.getElementById('quiz');if(!el)return;const x=T[L],Q=S.quiz;
+ if(Q.i<3){const q=x.q[Q.i];
+  el.innerHTML=`<div class="q-step">${x.qStep} ${Q.i+1} / 3</div><h3>${q[0]}</h3><div class="q-opts">${q[1].map((o,j)=>`<button data-a="${['art','rg','tra'][j]}">${o}</button>`).join('')}</div>`;
+ }else{const w=Object.entries(Q.score).sort((a,b)=>b[1]-a[1])[0][0];
+  el.innerHTML=`<div class="q-res"><span class="q-step">${x.qRes}</span><b>${x.res[w]}</b><p>${x.qResP}</p><div class="row"><a class="btn btn-red" href="#clubs" data-go="${w}">${x.cta1} <span class="arrow">→</span></a><button class="btn btn-line" id="qagain" style="color:#fff">${x.qAgain}</button></div></div>`;}
+}
+document.addEventListener('click',e=>{
+ const a=e.target.closest('[data-a]');if(a){S.quiz.score[a.dataset.a]++;S.quiz.i++;renderQuiz();return}
+ if(e.target.closest('#qagain')){S.quiz={i:0,score:{art:0,rg:0,tra:0}};renderQuiz();return}
+ const go=e.target.closest('[data-go]');if(go){S.disc=go.dataset.go;S.region='all'}
+ const r=e.target.closest('[data-r]');if(r){S.region=(S.region===r.dataset.r&&r.dataset.r!=='all')?'all':r.dataset.r;route();return}
+ const d=e.target.closest('[data-d]');if(d){S.disc=d.dataset.d;document.querySelectorAll('#dchips .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.d===S.disc));renderClubs();return}
+ const tb=e.target.closest('[data-tab]');if(tb){S.tab=+tb.dataset.tab;document.querySelectorAll('#rtabs .chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.tab===S.tab));renderTable();return}
+ const lg=e.target.closest('[data-l]');if(lg){setLang(lg.dataset.l)}
+});
+document.addEventListener('input',e=>{if(e.target.id==='club-q'){S.q=e.target.value;renderClubs()}});
+
+/* ---------- ROUTER ---------- */
+const VIEWS={home,federation,clubs,competitions,athletes};
+let raf;
+function route(){
+ const h=(location.hash||'#home').slice(1)||'home';
+ const v=VIEWS[h]||oops;
+ const app=document.getElementById('app');
+ const keepScroll=app.dataset.view===h;
+ app.innerHTML=v();app.dataset.view=h;
+ document.querySelectorAll('nav.main a').forEach(a=>{if(a.getAttribute('href')==='#'+h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ if(!keepScroll)window.scrollTo(0,0);
+ renderQuiz();renderClubs();renderTable();startRibbon();countUp();reveal();clock();
+}
+addEventListener('hashchange',route);
+
+/* ---------- LANGUAGE ---------- */
+function setLang(l){
+ L=l;try{localStorage.setItem('lgf-site-lang',l)}catch(e){}
+ const html=document.documentElement;html.lang=l;html.dir=l==='ar'?'rtl':'ltr';
+ document.querySelectorAll('[data-t]').forEach(el=>{const v=t(el.dataset.t);if(el.dataset.html)el.innerHTML=v;else el.textContent=v});
+ document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+ document.title=t('fed');
+ route();
+}
+
+/* ---------- MOTION ---------- */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function startRibbon(){
+ cancelAnimationFrame(raf);const cv=document.getElementById('rib');if(!cv)return;const cx=cv.getContext('2d');
+ const fit=()=>{const r=cv.getBoundingClientRect();cv.width=r.width*devicePixelRatio;cv.height=r.height*devicePixelRatio};fit();
+ const draw=tm=>{const w=cv.width,h=cv.height,dp=devicePixelRatio;cx.clearRect(0,0,w,h);
+  [['#ffffff',3],['#11161d',8],['#0b8a4c',5]].forEach((s,k)=>{cx.beginPath();cx.strokeStyle=s[0];cx.lineWidth=s[1]*dp;cx.lineCap='round';
+   for(let i=0;i<=160;i++){const p=i/160,x=w*p,y=h*.62+Math.sin(p*7+tm/1100+k*1.1)*h*.18*Math.sin(p*Math.PI)+(k-1)*18*dp;i?cx.lineTo(x,y):cx.moveTo(x,y)}cx.stroke()});
+  if(!reduce&&document.getElementById('rib')===cv)raf=requestAnimationFrame(draw)};
+ draw(0);
+}
+function countUp(){
+ if(reduce)return;
+ document.querySelectorAll('[data-count]').forEach(el=>{const end=+el.dataset.count,suf=el.dataset.suf||'',from=end>1000?end-60:0,t0=performance.now();
+  const step=n=>{const p=Math.min(1,(n-t0)/1400),e=1-Math.pow(1-p,3);el.textContent=Math.round(from+(end-from)*e)+suf;if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)});
+}
+function reveal(){
+ const items=document.querySelectorAll('.tl article.pre');if(!items.length)return;
+ if(reduce||!('IntersectionObserver' in window)){items.forEach(i=>i.classList.add('in'));return}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.3});
+ items.forEach(i=>io.observe(i));
+}
+let clockT;
+function clock(){
+ clearInterval(clockT);const el=document.getElementById('clock');if(!el)return;
+ const target=new Date('2026-12-13T09:00:00+02:00').getTime();
+ const tickF=()=>{let s=Math.max(0,Math.floor((target-Date.now())/1000));const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60);s%=60;
+  el.innerHTML=[[d,t('d')],[h,t('h')],[m,t('m')],[s,t('s')]].map(v=>`<div><b>${String(v[0]).padStart(2,'0')}</b><span>${v[1]}</span></div>`).join('')};
+ tickF();clockT=setInterval(tickF,1000);
+}
+addEventListener('resize',()=>{if(document.getElementById('rib'))startRibbon()});
+
+setLang(L);
+</script>
+</body>
+</html>
