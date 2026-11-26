@@ -355,7 +355,7 @@ en:{draft:"Draft preview for the federation · <b>sample content</b> to be repla
  fedH:"The Federation",fedP:"Since 1961 the Lebanese Gymnastics Federation has organised, developed and represented gymnastics in Lebanon, from the first cartwheel to the international podium.",
  memE:"Executive committee",memH:"The people behind the federation",
  roles:["President","Vice President","Secretary General","Treasurer","Member","Member","Member","Member"],
- tbc:"Name to be added",secN:"Tarek Ghalayini",
+ tbc:"Name to be added",treasN:"Tarek Ghalayini",
  histE:"History",histH:"Gymnastics in Lebanon, 1961 to today",
  hist:[["1961","The federation is founded","On 29 March 1961, the Lebanese Gymnastics Federation is created to lead the sport nationally.",0],["1960s–2010s","Our archive is coming","Old photos, first champions and historic events. Do you have memories to share? Send them to us.",1],["2022","Equipment from Japan","The Japan Gymnastics Association donates gymnastics equipment to Lebanon.",0],["2024","Mediterranean success","Pre-junior Liana Bachir Zghaib finishes 7th all-around out of 36 in Tunisia.",0],["2025","38 medals in Qatar","Lebanon shines at the International Friendship Championship.",0],["2025","A record championship","About 900 gymnasts compete at the National Championship.",0],["2026","On the world stage","Luna Birjawi represents Lebanon at the Rhythmic World Championships.",0]],
  clubsP:"Every recognised club and academy in Lebanon. Filter by region and discipline, then contact them directly.",
@@ -396,7 +396,7 @@ fr:{draft:"Aperçu de travail pour la fédération · <b>contenu d'exemple</b> �
  fedH:"La Fédération",fedP:"Depuis 1961, la Fédération Libanaise de Gymnastique organise, développe et représente la gymnastique au Liban, de la première roue jusqu'au podium international.",
  memE:"Comité exécutif",memH:"L'équipe de la fédération",
  roles:["Président","Vice-président","Secrétaire général","Trésorier","Membre","Membre","Membre","Membre"],
- tbc:"Nom à ajouter",secN:"Tarek Ghalayini",
+ tbc:"Nom à ajouter",treasN:"Tarek Ghalayini",
  histE:"Histoire",histH:"La gymnastique au Liban, de 1961 à aujourd'hui",
  hist:[["1961","Création de la fédération","Le 29 mars 1961, la Fédération Libanaise de Gymnastique est créée pour diriger ce sport au niveau national.",0],["1960–2010","Nos archives arrivent","Photos anciennes, premiers champions, moments historiques. Vous avez des souvenirs ? Envoyez-les-nous.",1],["2022","Du matériel venu du Japon","L'Association japonaise de gymnastique offre du matériel au Liban.",0],["2024","Succès méditerranéen","La pré-junior Liana Bachir Zghaib termine 7e du concours général sur 36 en Tunisie.",0],["2025","38 médailles au Qatar","Le Liban brille au Championnat international de l'Amitié.",0],["2025","Un championnat record","Environ 900 gymnastes au Championnat national.",0],["2026","Sur la scène mondiale","Luna Birjawi représente le Liban aux Championnats du monde de rythmique.",0]],
  clubsP:"Tous les clubs et académies reconnus au Liban. Filtrez par région et discipline, puis contactez-les directement.",
@@ -437,7 +437,7 @@ ar:{draft:"نسخة تجريبية للاتحاد · <b>محتوى تجريبي<
  fedH:"الاتحاد",fedP:"منذ عام 1961 ينظّم الاتحاد اللبناني للجمباز هذه الرياضة ويطوّرها ويمثّلها، من أول شقلبة حتى منصّات التتويج الدولية.",
  memE:"اللجنة التنفيذية",memH:"فريق الاتحاد",
  roles:["الرئيس","نائب الرئيس","أمين السر","أمين الصندوق","عضو","عضو","عضو","عضو"],
- tbc:"الاسم قريباً",secN:"طارق الغلاييني",
+ tbc:"الاسم قريباً",treasN:"طارق الغلاييني",
  histE:"التاريخ",histH:"الجمباز في لبنان من 1961 حتى اليوم",
  hist:[["1961","تأسيس الاتحاد","في 29 آذار 1961 تأسس الاتحاد اللبناني للجمباز ليقود هذه الرياضة على المستوى الوطني.",0],["1960–2010","أرشيفنا قادم","صور قديمة، أوائل الأبطال، ولحظات تاريخية. لديك ذكريات؟ أرسلها إلينا.",1],["2022","معدات من اليابان","الاتحاد الياباني للجمباز يقدّم معدات جمباز إلى لبنان.",0],["2024","نجاح متوسطي","اللاعبة ليانا بشير زغيب تحلّ سابعة في الترتيب العام من أصل 36 في تونس.",0],["2025","38 ميدالية في قطر","لبنان يتألق في بطولة الصداقة الدولية.",0],["2025","بطولة قياسية","نحو 900 لاعب ولاعبة في بطولة لبنان.",0],["2026","على المسرح العالمي","لونا برجاوي تمثّل لبنان في بطولة العالم للجمباز الإيقاعي.",0]],
  clubsP:"كل الأندية والأكاديميات المعترف بها في لبنان. اختر المنطقة والاختصاص، ثم تواصل معهم مباشرة.",
@@ -543,7 +543,7 @@ function federation(){
   <span class="eyebrow">${x.memE}</span><h2 class="h2" style="margin-bottom:36px">${x.memH}</h2>
   <div class="members">${x.roles.map((r,i)=>i===0
     ?`<div class="member lead"><div class="ph"><img src="president.jpg" alt="${esc(x.presN)}"></div><b>${x.presN}</b><span>${r}</span></div>`
-    :`<div class="member${i===2?" lead":""}"><div class="ph">${i===2?"TG":"LGF"}</div><b>${i===2?x.secN:x.tbc}</b><span>${r}</span></div>`).join('')}</div>
+    :`<div class="member${i===3?" lead":""}"><div class="ph">${i===3?"TG":"LGF"}</div><b>${i===3?x.treasN:x.tbc}</b><span>${r}</span></div>`).join('')}</div>
  </div></section>
  <section style="background:var(--surface)"><div class="wrap" style="max-width:820px">
   <span class="eyebrow">${x.histE}</span><h2 class="h2" style="margin-bottom:36px">${x.histH}</h2>
