@@ -472,6 +472,14 @@ ar:{draft:"نسخة تجريبية للاتحاد · <b>محتوى تجريبي<
 /* ---------- MOCK DATA ---------- */
 const CLUBS=[
  // Real academies (contacts sent by the federation, 6 Nov 2026). Town, region (r), disciplines (d), ages (a), gymnasts (g) still to collect.
+ {n:"Buddha Sports Club",ar:"نادي بودا الرياضي",town:{en:"Adma",fr:"Adma",ar:"أدما"},r:"kesr",d:["art","gfa"],a:"4–18",g:140,sample:1,c:"#d8232a"},
+ {n:"Al Riyadi Club",ar:"النادي الرياضي",town:{en:"Manara, Beirut",fr:"Manara, Beyrouth",ar:"المنارة، بيروت"},r:"beirut",d:["art","rg"],a:"5–18",g:120,sample:1,c:"#11161d"},
+ {n:"Bodyfit Gymnastics",ar:"بودي فيت",town:{en:"Dbayeh",fr:"Dbayeh",ar:"ضبيه"},r:"metn",d:["art","tra","gfa"],a:"3–18",g:180,sample:1,c:"#0b8a4c"},
+ {n:"Stars Gymnastics",ar:"ستارز للجمباز",town:{en:"Tripoli",fr:"Tripoli",ar:"طرابلس"},r:"north",d:["art","rg"],a:"5–16",g:95,sample:1,c:"#c9962b"},
+ {n:"Hoops Club",ar:"نادي هوبس",town:{en:"Beirut",fr:"Beyrouth",ar:"بيروت"},r:"beirut",d:["art","aer"],a:"4–16",g:80,sample:1,c:"#2f5bd3"},
+ {n:"Hariri Sports Complex",ar:"مجمع الحريري الرياضي",town:{en:"Saida",fr:"Saïda",ar:"صيدا"},r:"south",d:["art","rg","gfa"],a:"5–18",g:110,sample:1,c:"#7a3fb8"},
+ {n:"Lycée National Academy",ar:"أكاديمية الليسيه ناسيونال",town:{en:"Zahle",fr:"Zahlé",ar:"زحلة"},r:"bekaa",d:["art","gfa"],a:"4–14",g:70,sample:1,c:"#e07a1f"},
+ {n:"Cedars Flip Academy",ar:"أكاديمية الأرز فليب",town:{en:"Baabda",fr:"Baabda",ar:"بعبدا"},r:"mount",d:["tra","aer","gfa"],a:"3–12",g:60,sample:1,c:"#d8232a"},
  {n:"Flips & Ribbons",tel:"71620200",c:"#d8232a"},
  {n:"The Bridge",tel:"76837448",c:"#11161d"},
  {n:"The Gymnasium",tel:"70415435",c:"#0b8a4c"},
@@ -527,7 +535,7 @@ function home(){
  <section class="stats"><div class="wrap">
   <span class="eyebrow">${x.statE}</span>
   <div class="stat-grid">
-   ${[[1961,''],[900,'+'],[38,''],[CLUBS.length,'']].map((v,i)=>`<div class="stat"><b data-count="${v[0]}" data-suf="${v[1]}">${v[0]}${v[1]}</b><span>${x.st[i]}</span></div>`).join('')}
+   ${[[1961,''],[900,'+'],[38,''],[48,'+']].map((v,i)=>`<div class="stat"><b data-count="${v[0]}" data-suf="${v[1]}">${v[0]}${v[1]}</b><span>${x.st[i]}</span></div>`).join('')}
   </div>
  </div></section>
  <section><div class="wrap pres">
@@ -593,7 +601,7 @@ function renderClubs(){
  const x=T[L], el=document.getElementById('club-list'); if(!el)return;
  const q=S.q.trim().toLowerCase();
  const list=CLUBS.filter(c=>(S.region==='all'||c.r===S.region)&&(S.disc==='all'||(c.d||[]).includes(S.disc))&&(!q||[c.n,c.ar,c.tel,c.town&&c.town.en,c.town&&c.town.ar,c.town&&c.town.fr].join(' ').toLowerCase().includes(q)));
- el.innerHTML=list.length?list.map(c=>`<article class="club"><div class="lg" style="background:${c.c}">${MARK}</div><div><h3>${L==='ar'&&c.ar?c.ar:c.n}</h3>${c.town?`<p>${c.town[L]} · ${x.reg[c.r]}</p>`:''}${c.d?`<div class="tags">${c.d.map(d=>`<i>${x.dsh[d]}</i>`).join('')}</div>`:''}<p class="tel" dir="ltr">${fmtTel(c.tel)}</p></div><div class="cta-c"><a class="cbtn" href="tel:+961${c.tel}" aria-label="${esc(x.call+' '+c.n)}">${x.call}</a><a class="cbtn wa" href="https://wa.me/961${c.tel}" target="_blank" rel="noopener" aria-label="${esc('WhatsApp '+c.n)}">WhatsApp</a></div></article>`).join(''):`<div class="empty">${x.noClub}</div>`;
+ el.innerHTML=list.length?list.map(c=>`<article class="club"><div class="lg" style="background:${c.c}">${MARK}</div><div><h3>${L==='ar'&&c.ar?c.ar:c.n}${c.sample?`<span class="sample">${L==='ar'?'تجريبي':L==='fr'?'exemple':'sample'}</span>`:''}</h3>${c.town?`<p>${c.town[L]} · ${x.reg[c.r]}</p>`:''}${c.d?`<div class="tags">${c.d.map(d=>`<i>${x.dsh[d]}</i>`).join('')}</div>`:''}${c.tel?`<p class="tel" dir="ltr">${fmtTel(c.tel)}</p>`:''}</div>${c.tel?`<div class="cta-c"><a class="cbtn" href="tel:+961${c.tel}" aria-label="${esc(x.call+' '+c.n)}">${x.call}</a><a class="cbtn wa" href="https://wa.me/961${c.tel}" target="_blank" rel="noopener" aria-label="${esc('WhatsApp '+c.n)}">WhatsApp</a></div>`:`<div class="ag"><b>${c.g}</b>${x.gymn}<br>${x.ages} ${c.a}</div>`}</article>`).join(''):`<div class="empty">${x.noClub}</div>`;
 }
 function competitions(){
  const x=T[L];
