@@ -209,6 +209,16 @@ section{padding-block:72px}
 .tags i{font-style:normal;font-size:.7rem;padding:2px 8px;border-radius:999px;background:var(--cedar-soft);color:var(--cedar)}
 .club .ag{font-size:.75rem;color:var(--muted);text-align:end;white-space:nowrap}
 .club .ag b{display:block;font-size:1.1rem;color:var(--ink);font-family:var(--display)}
+.club .tel{font-variant-numeric:tabular-nums;margin-top:2px}
+[dir="rtl"] .club .tel{text-align:right}
+.club .cta-c{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.cbtn{text-decoration:none;font-size:.8rem;font-weight:500;padding:8px 14px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.cbtn:hover{border-color:var(--red);color:var(--red)}
+.cbtn.wa{background:var(--cedar);border-color:var(--cedar);color:#fff}
+.cbtn.wa:hover{background:#086c3b;color:#fff}
+.club-layout.solo{grid-template-columns:1fr}
+.club-layout.solo .club-list{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+@media (max-width:520px){.club{grid-template-columns:56px 1fr}.club .cta-c{grid-column:1/-1;justify-content:stretch}.cbtn{flex:1;text-align:center}}
 .map{background:var(--surface);border-radius:16px;padding:18px;position:sticky;top:110px}
 .map svg{width:100%;height:auto;display:block}
 .map .reg{fill:#dfe4ea;stroke:#fff;stroke-width:3;transition:fill .2s;cursor:pointer}
@@ -359,7 +369,7 @@ en:{draft:"Draft preview for the federation · <b>sample content</b> to be repla
  histE:"History",histH:"Gymnastics in Lebanon, 1961 to today",
  hist:[["1961","The federation is founded","On 29 March 1961, the Lebanese Gymnastics Federation is created to lead the sport nationally.",0],["1960s–2010s","Our archive is coming","Old photos, first champions and historic events. Do you have memories to share? Send them to us.",1],["2022","Equipment from Japan","The Japan Gymnastics Association donates gymnastics equipment to Lebanon.",0],["2024","Mediterranean success","Pre-junior Liana Bachir Zghaib finishes 7th all-around out of 36 in Tunisia.",0],["2025","38 medals in Qatar","Lebanon shines at the International Friendship Championship.",0],["2025","A record championship","About 900 gymnasts compete at the National Championship.",0],["2026","On the world stage","Luna Birjawi represents Lebanon at the Rhythmic World Championships.",0]],
  clubsP:"Every recognised club and academy in Lebanon. Filter by region and discipline, then contact them directly.",
- search:"Search a club or town…",allR:"All regions",allD:"All disciplines",ages:"Ages",gymn:"gymnasts",noClub:"No club matches. Try another region or discipline.",mapNote:"Tap a region on the map to filter.",
+ search:"Search a club or town…",allR:"All regions",allD:"All disciplines",ages:"Ages",gymn:"gymnasts",call:"Call",noClub:"No club matches. Try another region or discipline.",mapNote:"Tap a region on the map to filter.",
  reg:{beirut:"Beirut",metn:"Metn",kesr:"Keserwan",north:"North",south:"South",bekaa:"Bekaa",mount:"Mount Lebanon"},
  dsh:{art:"Artistic",rg:"Rhythmic",tra:"Trampoline",aer:"Aerobic",gfa:"Gym for All"},
  compP:"Every national and international event, and every score.",
@@ -400,7 +410,7 @@ fr:{draft:"Aperçu de travail pour la fédération · <b>contenu d'exemple</b> �
  histE:"Histoire",histH:"La gymnastique au Liban, de 1961 à aujourd'hui",
  hist:[["1961","Création de la fédération","Le 29 mars 1961, la Fédération Libanaise de Gymnastique est créée pour diriger ce sport au niveau national.",0],["1960–2010","Nos archives arrivent","Photos anciennes, premiers champions, moments historiques. Vous avez des souvenirs ? Envoyez-les-nous.",1],["2022","Du matériel venu du Japon","L'Association japonaise de gymnastique offre du matériel au Liban.",0],["2024","Succès méditerranéen","La pré-junior Liana Bachir Zghaib termine 7e du concours général sur 36 en Tunisie.",0],["2025","38 médailles au Qatar","Le Liban brille au Championnat international de l'Amitié.",0],["2025","Un championnat record","Environ 900 gymnastes au Championnat national.",0],["2026","Sur la scène mondiale","Luna Birjawi représente le Liban aux Championnats du monde de rythmique.",0]],
  clubsP:"Tous les clubs et académies reconnus au Liban. Filtrez par région et discipline, puis contactez-les directement.",
- search:"Chercher un club ou une ville…",allR:"Toutes les régions",allD:"Toutes les disciplines",ages:"Âges",gymn:"gymnastes",noClub:"Aucun club trouvé. Essayez une autre région ou discipline.",mapNote:"Touchez une région sur la carte pour filtrer.",
+ search:"Chercher un club ou une ville…",allR:"Toutes les régions",allD:"Toutes les disciplines",ages:"Âges",gymn:"gymnastes",call:"Appeler",noClub:"Aucun club trouvé. Essayez une autre région ou discipline.",mapNote:"Touchez une région sur la carte pour filtrer.",
  reg:{beirut:"Beyrouth",metn:"Metn",kesr:"Kesrouan",north:"Nord",south:"Sud",bekaa:"Békaa",mount:"Mont-Liban"},
  dsh:{art:"Artistique",rg:"Rythmique",tra:"Trampoline",aer:"Aérobic",gfa:"Gym pour tous"},
  compP:"Chaque événement national et international, et chaque note.",
@@ -441,7 +451,7 @@ ar:{draft:"نسخة تجريبية للاتحاد · <b>محتوى تجريبي<
  histE:"التاريخ",histH:"الجمباز في لبنان من 1961 حتى اليوم",
  hist:[["1961","تأسيس الاتحاد","في 29 آذار 1961 تأسس الاتحاد اللبناني للجمباز ليقود هذه الرياضة على المستوى الوطني.",0],["1960–2010","أرشيفنا قادم","صور قديمة، أوائل الأبطال، ولحظات تاريخية. لديك ذكريات؟ أرسلها إلينا.",1],["2022","معدات من اليابان","الاتحاد الياباني للجمباز يقدّم معدات جمباز إلى لبنان.",0],["2024","نجاح متوسطي","اللاعبة ليانا بشير زغيب تحلّ سابعة في الترتيب العام من أصل 36 في تونس.",0],["2025","38 ميدالية في قطر","لبنان يتألق في بطولة الصداقة الدولية.",0],["2025","بطولة قياسية","نحو 900 لاعب ولاعبة في بطولة لبنان.",0],["2026","على المسرح العالمي","لونا برجاوي تمثّل لبنان في بطولة العالم للجمباز الإيقاعي.",0]],
  clubsP:"كل الأندية والأكاديميات المعترف بها في لبنان. اختر المنطقة والاختصاص، ثم تواصل معهم مباشرة.",
- search:"ابحث عن نادٍ أو بلدة…",allR:"كل المناطق",allD:"كل الاختصاصات",ages:"الأعمار",gymn:"لاعب",noClub:"لا يوجد نادٍ مطابق. جرّب منطقة أو اختصاصاً آخر.",mapNote:"اضغط على منطقة في الخريطة للتصفية.",
+ search:"ابحث عن نادٍ أو بلدة…",allR:"كل المناطق",allD:"كل الاختصاصات",ages:"الأعمار",gymn:"لاعب",call:"اتصال",noClub:"لا يوجد نادٍ مطابق. جرّب منطقة أو اختصاصاً آخر.",mapNote:"اضغط على منطقة في الخريطة للتصفية.",
  reg:{beirut:"بيروت",metn:"المتن",kesr:"كسروان",north:"الشمال",south:"الجنوب",bekaa:"البقاع",mount:"جبل لبنان"},
  dsh:{art:"فني",rg:"إيقاعي",tra:"ترامبولين",aer:"أيروبيك",gfa:"للجميع"},
  compP:"كل البطولات المحلية والدولية، وكل العلامات.",
@@ -461,15 +471,17 @@ ar:{draft:"نسخة تجريبية للاتحاد · <b>محتوى تجريبي<
 
 /* ---------- MOCK DATA ---------- */
 const CLUBS=[
- {n:"Buddha Sports Club",ar:"نادي بودا الرياضي",town:{en:"Adma",fr:"Adma",ar:"أدما"},r:"kesr",d:["art","gfa"],a:"4–18",g:140,c:"#d8232a"},
- {n:"Al Riyadi Club",ar:"النادي الرياضي",town:{en:"Manara, Beirut",fr:"Manara, Beyrouth",ar:"المنارة، بيروت"},r:"beirut",d:["art","rg"],a:"5–18",g:120,c:"#11161d"},
- {n:"Bodyfit Gymnastics",ar:"بودي فيت",town:{en:"Dbayeh",fr:"Dbayeh",ar:"ضبيه"},r:"metn",d:["art","tra","gfa"],a:"3–18",g:180,c:"#0b8a4c"},
- {n:"Stars Gymnastics",ar:"ستارز للجمباز",town:{en:"Tripoli",fr:"Tripoli",ar:"طرابلس"},r:"north",d:["art","rg"],a:"5–16",g:95,c:"#c9962b"},
- {n:"Hoops Club",ar:"نادي هوبس",town:{en:"Beirut",fr:"Beyrouth",ar:"بيروت"},r:"beirut",d:["art","aer"],a:"4–16",g:80,c:"#2f5bd3"},
- {n:"Hariri Sports Complex",ar:"مجمع الحريري الرياضي",town:{en:"Saida",fr:"Saïda",ar:"صيدا"},r:"south",d:["art","rg","gfa"],a:"5–18",g:110,c:"#7a3fb8"},
- {n:"Lycée National Academy",ar:"أكاديمية الليسيه ناسيونال",town:{en:"Zahle",fr:"Zahlé",ar:"زحلة"},r:"bekaa",d:["art","gfa"],a:"4–14",g:70,c:"#e07a1f"},
- {n:"Cedars Flip Academy",ar:"أكاديمية الأرز فليب",town:{en:"Baabda",fr:"Baabda",ar:"بعبدا"},r:"mount",d:["tra","aer","gfa"],a:"3–12",g:60,c:"#d8232a"}
+ // Real academies (contacts sent by the federation, 6 Nov 2026). Town, region (r), disciplines (d), ages (a), gymnasts (g) still to collect.
+ {n:"Flips & Ribbons",tel:"71620200",c:"#d8232a"},
+ {n:"The Bridge",tel:"76837448",c:"#11161d"},
+ {n:"The Gymnasium",tel:"70415435",c:"#0b8a4c"},
+ {n:"Primero Gymnastics",tel:"81772530",c:"#c9962b"},
+ {n:"Xfit",tel:"70669141",c:"#2f5bd3"},
+ {n:"Fusion Cove",tel:"70007358",c:"#7a3fb8"},
+ {n:"Gymnastics House",tel:"76958277",c:"#e07a1f"}
 ];
+const HAS_REGION=CLUBS.some(c=>c.r), HAS_DISC=CLUBS.some(c=>c.d&&c.d.length);
+const fmtTel=t=>'+961 '+t.slice(0,2)+' '+t.slice(2,5)+' '+t.slice(5);
 const RESULTS=[
  [[31,"Luna Birjawi","لونا برجاوي","Lebanon","45.950",1],[34,"Christine Ajjour","كريستين عجّور","Lebanon","27.600",1],[36,"Yara Semaan","يارا سمعان","Lebanon","26.250",1]],
  [[93,"Luna Birjawi","لونا برجاوي","Lebanon","42.100",1]],
@@ -515,7 +527,7 @@ function home(){
  <section class="stats"><div class="wrap">
   <span class="eyebrow">${x.statE}</span>
   <div class="stat-grid">
-   ${[[1961,''],[900,'+'],[38,''],[CLUBS.length*6,'+']].map((v,i)=>`<div class="stat"><b data-count="${v[0]}" data-suf="${v[1]}">${v[0]}${v[1]}</b><span>${x.st[i]}</span></div>`).join('')}
+   ${[[1961,''],[900,'+'],[38,''],[CLUBS.length,'']].map((v,i)=>`<div class="stat"><b data-count="${v[0]}" data-suf="${v[1]}">${v[0]}${v[1]}</b><span>${x.st[i]}</span></div>`).join('')}
   </div>
  </div></section>
  <section><div class="wrap pres">
@@ -556,10 +568,10 @@ function clubs(){
  return `<section class="phero"><div class="wrap"><span class="eyebrow" style="color:#fff;opacity:.85">${x.nClubs}</span><h1>${x.nClubs}</h1><p>${x.clubsP}</p></div></section>
  <section><div class="wrap">
   <div class="filters"><input id="club-q" type="search" placeholder="${esc(x.search)}" value="${esc(S.q)}" aria-label="${esc(x.search)}"></div>
-  <div class="filters" id="dchips">${['all',...ds].map(d=>`<button class="chip" data-d="${d}" aria-pressed="${S.disc===d}">${d==='all'?x.allD:x.dsh[d]}</button>`).join('')}</div>
-  <div class="club-layout">
+  ${HAS_DISC?`<div class="filters" id="dchips">${['all',...ds].map(d=>`<button class="chip" data-d="${d}" aria-pressed="${S.disc===d}">${d==='all'?x.allD:x.dsh[d]}</button>`).join('')}</div>`:''}
+  <div class="club-layout${HAS_REGION?'':' solo'}">
    <div class="club-list" id="club-list"></div>
-   <aside class="map">${lebMap()}<p>${x.mapNote} <button class="chip" data-r="all" style="padding:4px 10px;font-size:.75rem" aria-pressed="${S.region==='all'}">${x.allR}</button></p></aside>
+   ${HAS_REGION?`<aside class="map">${lebMap()}<p>${x.mapNote} <button class="chip" data-r="all" style="padding:4px 10px;font-size:.75rem" aria-pressed="${S.region==='all'}">${x.allR}</button></p></aside>`:''}
   </div>
  </div></section>`;
 }
@@ -580,8 +592,8 @@ function lebMap(){
 function renderClubs(){
  const x=T[L], el=document.getElementById('club-list'); if(!el)return;
  const q=S.q.trim().toLowerCase();
- const list=CLUBS.filter(c=>(S.region==='all'||c.r===S.region)&&(S.disc==='all'||c.d.includes(S.disc))&&(!q||(c.n+c.ar+c.town.en+c.town.ar+c.town.fr).toLowerCase().includes(q)));
- el.innerHTML=list.length?list.map(c=>`<article class="club"><div class="lg" style="background:${c.c}">${MARK}</div><div><h3>${L==='ar'?c.ar:c.n}<span class="sample">${L==='ar'?'تجريبي':L==='fr'?'exemple':'sample'}</span></h3><p>${c.town[L]} · ${x.reg[c.r]}</p><div class="tags">${c.d.map(d=>`<i>${x.dsh[d]}</i>`).join('')}</div></div><div class="ag"><b>${c.g}</b>${x.gymn}<br>${x.ages} ${c.a}</div></article>`).join(''):`<div class="empty">${x.noClub}</div>`;
+ const list=CLUBS.filter(c=>(S.region==='all'||c.r===S.region)&&(S.disc==='all'||(c.d||[]).includes(S.disc))&&(!q||[c.n,c.ar,c.tel,c.town&&c.town.en,c.town&&c.town.ar,c.town&&c.town.fr].join(' ').toLowerCase().includes(q)));
+ el.innerHTML=list.length?list.map(c=>`<article class="club"><div class="lg" style="background:${c.c}">${MARK}</div><div><h3>${L==='ar'&&c.ar?c.ar:c.n}</h3>${c.town?`<p>${c.town[L]} · ${x.reg[c.r]}</p>`:''}${c.d?`<div class="tags">${c.d.map(d=>`<i>${x.dsh[d]}</i>`).join('')}</div>`:''}<p class="tel" dir="ltr">${fmtTel(c.tel)}</p></div><div class="cta-c"><a class="cbtn" href="tel:+961${c.tel}" aria-label="${esc(x.call+' '+c.n)}">${x.call}</a><a class="cbtn wa" href="https://wa.me/961${c.tel}" target="_blank" rel="noopener" aria-label="${esc('WhatsApp '+c.n)}">WhatsApp</a></div></article>`).join(''):`<div class="empty">${x.noClub}</div>`;
 }
 function competitions(){
  const x=T[L];
@@ -626,7 +638,7 @@ function renderQuiz(){
 document.addEventListener('click',e=>{
  const a=e.target.closest('[data-a]');if(a){S.quiz.score[a.dataset.a]++;S.quiz.i++;renderQuiz();return}
  if(e.target.closest('#qagain')){S.quiz={i:0,score:{art:0,rg:0,tra:0}};renderQuiz();return}
- const go=e.target.closest('[data-go]');if(go){S.disc=go.dataset.go;S.region='all'}
+ const go=e.target.closest('[data-go]');if(go){S.disc=HAS_DISC?go.dataset.go:'all';S.region='all'}
  const r=e.target.closest('[data-r]');if(r){S.region=(S.region===r.dataset.r&&r.dataset.r!=='all')?'all':r.dataset.r;route();return}
  const d=e.target.closest('[data-d]');if(d){S.disc=d.dataset.d;document.querySelectorAll('#dchips .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.d===S.disc));renderClubs();return}
  const tb=e.target.closest('[data-tab]');if(tb){S.tab=+tb.dataset.tab;document.querySelectorAll('#rtabs .chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.tab===S.tab));renderTable();return}
